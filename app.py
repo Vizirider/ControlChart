@@ -33,8 +33,8 @@ auth = dash_auth.BasicAuth(app, authentication(app))
 server = app.server
 file_callback(app)
 table_callback(app)
-# data_callback(app)
-# figure_callback(app)
+data_callback(app)
+figure_callback(app)
 
 PAGE_SIZE = 10
 if 'D' in df.columns:
@@ -51,8 +51,8 @@ if 'T' in df.columns:
         term_options.append({'label': str(term), 'value': term})
 
 app.layout = html.Div(
-    # dcc.Tabs([
-        # dcc.Tab(label='', 
+    dcc.Tabs([
+        dcc.Tab(label='All samples', 
         children=[
             html.Div([
                 dcc.Upload(
@@ -74,16 +74,16 @@ app.layout = html.Div(
                     multiple=True
                 )
             ]),
-            # html.Div(html.P(dbc.Button(
-                # "ControlChart Description",
-                # id="collapse-button",
-                # className="mb-3",
-                # color="primary",
-            # ))),
-            # dbc.Collapse(
-                # dbc.Card(dbc.CardBody(dcc.Markdown(text_markdown))),
-                # id="collapse",
-            # ),
+            html.Div(html.P(dbc.Button(
+                "ControlChart Description",
+                id="collapse-button",
+                className="mb-3",
+                color="primary",
+            ))),
+            dbc.Collapse(
+                dbc.Card(dbc.CardBody(dcc.Markdown(text_markdown))),
+                id="collapse",
+            ),
             html.Div(
                 [html.P(html.Label("User specified upper limit")), dcc.Input(
                     id='user-spec1', type='text', placeholder='Upper limit', value='')],
@@ -109,47 +109,47 @@ app.layout = html.Div(
                                           style={'display': 'flex', 'align-items': 'center', 'justify-content': 'center'}),
             html.P(html.Label("A táblázat maximum 10 sort jelenít meg, de lapozható"),style={'text-align':'center'})
         ]
+        ),
+        dcc.Tab(label='User specified', children=[
+            html.P(html.Div(
+                [html.Label("Ev"), dcc.Dropdown(id='year-picker',
+                                                  options=year_options)],
+                style={'width': '48%', 'display': 'inline-block'})),
+            html.Div(
+                [html.Label("Honap"), dcc.Dropdown(id='month-picker',
+                                                   options=month_options)],
+                style={'width': '48%', 'display': 'inline-block'}),
+            html.Div(
+                [html.Label("Prioritas"), dcc.Dropdown(
+                    id='term-picker', options=term_options)],
+                style={'width': '48%', 'display': 'inline-block'}),
+            html.Div(
+                [html.P(html.Label("Y axis constant line ")), dcc.Input(
+                    id='user-spec', type='text', placeholder='Y axis constant line', value='20')],
+                style={'width': '48%', 'display': 'inline-block'}),
+            dcc.Loading(
+                id="loading2",
+                children=dcc.Graph(id='sample2'),
+                type="circle",
+            ),
+            html.Div(dash_table.DataTable(id='table2',
+                                          columns=[{"name": i, "id": i}
+                                                   for i in df.columns],
+                                          style_table={'overflowX': 'auto'},
+                                          style_cell={
+                                              'minWidth': '180px', 'width': '180px', 'maxWidth': '180px',
+                                              'overflow': 'hidden',
+                                              'textOverflow': 'ellipsis',
+                                          },
+                                          page_current=0,
+                                          page_size=PAGE_SIZE,
+                                          page_action='custom')),
+            html.P(html.Label("A táblázat maximum 10 sort jelenít meg, de lapozható")),
+        ]
         )
-        # dcc.Tab(label='User specified', children=[
-            # html.P(html.Div(
-                # [html.Label("Ev"), dcc.Dropdown(id='year-picker',
-                                                  # options=year_options)],
-                # style={'width': '48%', 'display': 'inline-block'})),
-            # html.Div(
-                # [html.Label("Honap"), dcc.Dropdown(id='month-picker',
-                                                   # options=month_options)],
-                # style={'width': '48%', 'display': 'inline-block'}),
-            # html.Div(
-                # [html.Label("Prioritas"), dcc.Dropdown(
-                    # id='term-picker', options=term_options)],
-                # style={'width': '48%', 'display': 'inline-block'}),
-            # html.Div(
-                # [html.P(html.Label("Y axis constant line ")), dcc.Input(
-                    # id='user-spec', type='text', placeholder='Y axis constant line', value='20')],
-                # style={'width': '48%', 'display': 'inline-block'}),
-            # dcc.Loading(
-                # id="loading2",
-                # children=dcc.Graph(id='sample2'),
-                # type="circle",
-            # ),
-            # html.Div(dash_table.DataTable(id='table2',
-                                          # columns=[{"name": i, "id": i}
-                                                   # for i in df.columns],
-                                          # style_table={'overflowX': 'auto'},
-                                          # style_cell={
-                                              # 'minWidth': '180px', 'width': '180px', 'maxWidth': '180px',
-                                              # 'overflow': 'hidden',
-                                              # 'textOverflow': 'ellipsis',
-                                          # },
-                                          # page_current=0,
-                                          # page_size=PAGE_SIZE,
-                                          # page_action='custom')),
-            # html.P(html.Label("A táblázat maximum 10 sort jelenít meg, de lapozható")),
-        # ]
-        # )
-    # ]
-    # )
-# )
+    ]
+    )
+)
 
 
 @app.callback(
