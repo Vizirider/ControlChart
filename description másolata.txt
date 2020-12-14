@@ -3,18 +3,12 @@
 
 	ControlChart leiras Markdown-ban irodott.
 	* A forras excel a python file melle kell keruljon a mappaba, de lehetoseg van feltolteni is.
-	* Ennek .csv, xls, txt, tsv kiterjesztesunek kell lennie, tamogatja az UTF-8 karakterkodolast.
+	* Ennek .csv, xls, xlsx, txt, tsv kiterjesztesunek kell lennie, tamogatja az UTF-8 karakterkodolast.
 	* Elso oszlopa a mintavetel sorszama (az x tengely), ha ez hianyzik sorszamot jelenit meg.
 	* Masodik a mintavetel erteke, ha csak egy oszlop van az ez legyen.
-	* Kepes tovabbi oszlopok alapjan szurni, de ez nem kotelezo elem.
 
-	#### Az elso fulon a chart az osszes mintavetelt megjeleniti adat feltoltese utan. 
-	Kiszamolja az atlagot valamint a 3 szigmat.
-	Megjeleniti tablazatos formaban.
-
-	#### Az masodik user specified fulon a chart a felhasznalo altal lekert mintavetelt megjeleniti. 
-	Kiszamolja az atlagot valamint a 3 szigmat. Megjeleniti tablazatos formaban
-	* Interaktivan valtoztathato a drop down altal, ha a felhasznalo toltott ilyet fel, ekkor ujra szamolja az atlag, szigma ertekeket is.
-	* Megjelenitheto egy interaktiv ertek az y tengelyen.
+	#### A chart az osszes mintavetelt megjeleniti adat feltoltese utan. 
+	Kiszamolja az atlagot valamint a 3 szigmat. Interaktivan megjelenithetjuk az also felso limit erteket.
+	Megjeleniti tablazatos formaban is lejjebb.
 
 	Python 3.6-ban dash plotly keretrendszerrel fejlesztette: *Vizi Robert*
