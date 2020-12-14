@@ -25,7 +25,7 @@ def table_callback(app):
             contents = contents[0]
             filename = filename[0]
             df = parse_data(contents, filename)
-            df = pd.DataFrame({'X' : df.iloc[:,0], 'Y' : df.iloc[:,1]})
+            df = pd.DataFrame({'X' : df.iloc[:,0], 'Y' : df.iloc[:,1],'D' : df.iloc[:,2], 'M' : df.iloc[:,3],'T' : df.iloc[:,4]})
 
         return df.iloc[page_current *
                               page_size:(page_current + 1)*page_size].to_dict('records')
