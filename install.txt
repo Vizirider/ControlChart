@@ -1,0 +1,54 @@
+conda create --name mydashenv python=3.6
+conda activate mydashenv
+pip install -r requirements.txt
+python parancs után import dash -- ha itt errort dob akkor pip uninstall után pip install
+ezt a python .\app.py futtatjuk a http://127.0.0.1:8050/ oldalon
+rossz formázás (incosistent use of tabs and spaces in indentation) esetén autopep8 -i .\app.py
+dash-bootstrap install: conda install -c conda-forge dash-bootstrap-components
+autentikációhoz: pip install dash-auth
+deploy virtualenv: pip install virtualenv
+test: pip install -U pytest-dash
+pip install pytest-selenium
+
+repository készítése git (master):
+git init --bare az S:\Git repositories\plotly mappában
+git config --bool core.bare true
+innen magatoknak letölteni:
+git clone /s/Git\ repositories/plotly/
+ha módosítjuk a repositoryt:
+git status mi módosult
+git commit (filenév) vagy . ha mindent
+itt vimhez hasonló szövegszerkesztőben komment a commitról
+git push -u origin master
+
+deploy to heroku:
+
+pip install virtualenv
+mkdir my_dash_app
+cd my_dash_app
+git init
+python -m virtualenv venv
+.\venv\Scripts\activate 
+pip install dash 
+install dash-auth
+pip install dash-renderer
+pip install dash-core-components
+pip install dash-html-components
+pip install plotly
+dash-bootstrap install: conda install -c conda-forge dash-bootstrap-components
+pip install gunicorn
+copy files to my_dash_app
+new file: echo "web: gunicorn app:server" > Procfile
+pip freeze > requirements.txt 
+login to heroku with cli: heroku login
+username: qse@opulus.com password:Qse*123456
+heroku create my-dash-app 
+git add . 
+git commit -m "Initial launch"
+heroku git:remote -a controlchart
+git push heroku master 
+heroku ps:scale web=1 
+https://my-dash-app.herokuapp.com
+update: pip install newdependency
+pip freeze > requirements.txt
+deploy change: heroku git:clone -a controlchart
