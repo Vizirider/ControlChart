@@ -6,6 +6,7 @@ ezt a python .\app.py futtatjuk a http://127.0.0.1:8050/ oldalon
 rossz formázás (incosistent use of tabs and spaces in indentation) esetén autopep8 -i .\app.py
 dash-bootstrap install: conda install -c conda-forge dash-bootstrap-components
 autentikációhoz: pip install dash-auth
+parallel megjelenítéshez: conda install -c conda-forge matplotlib
 deploy virtualenv: pip install virtualenv
 test: pip install -U pytest-dash
 pip install pytest-selenium

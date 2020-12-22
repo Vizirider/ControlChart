@@ -19,8 +19,12 @@ def file_callback(app):
         Input('upload-data', 'contents'),
         Input('upload-data', 'filename'),
         Input('user-spec1','value'),
-        Input('user-spec2','value')])
-    def drag_select(contents, filename, userspec1, userspec2):
+        Input('user-spec2','value'),
+        Input('chart_name','value'),        
+        Input('x_axis','value'),       
+        Input('y_axis','value')       
+        ])
+    def drag_select(contents, filename, userspec1, userspec2, chartname, xaxi, yaxi):
 
         if contents:
             contents = contents[0]
@@ -38,7 +42,7 @@ def file_callback(app):
             x=df['X'],
             y=df['Y'],
             mode='markers',
-            name='Sampling',
+            name='Data',
             opacity=0.7,
             marker={'size': 15}
         )),
@@ -46,15 +50,16 @@ def file_callback(app):
             x=df['X'],
             y=atlag,
             mode='lines',
-            name='Sampling mean',
+            name='Mean',
             line={'color': 'green'}
         )),
         traces.append(go.Scatter(
             x=df['X'],
             y=atlag+szoras,
             mode='lines',
-            name='Sigma 1',
+            name='1xSigma',
             opacity=0.5,
+            legendgroup='1xSigmagroup',
             line={'color': 'yellow'}
         )),
         traces.append(go.Scatter(
@@ -62,7 +67,8 @@ def file_callback(app):
             y=atlag-szoras,
             mode='lines',
             line={'color': 'yellow'},
-            name='Sigma 1',
+            name='1xSigma',
+            legendgroup='1xSigmagroup',
             opacity=0.5,
             showlegend=False
         )),
@@ -70,7 +76,8 @@ def file_callback(app):
             x=df['X'],
             y=atlag+2*szoras,
             mode='lines',
-            name='Sigma 2',
+            name='2xSigma',
+            legendgroup='2xSigmagroup',
             opacity=0.5,
             line={'color': 'orange'}
         )),
@@ -79,7 +86,8 @@ def file_callback(app):
             y=atlag-2*szoras,
             mode='lines',
             line={'color': 'orange'},
-            name='Sigma 2',
+            name='2xSigma',
+            legendgroup='2xSigmagroup',
             opacity=0.5,
             showlegend=False
         )),
@@ -87,7 +95,8 @@ def file_callback(app):
             x=df['X'],
             y=atlag+3*szoras,
             mode='lines',
-            name='Sigma 3',
+            name='3xSigma',
+            legendgroup='3xSigmagroup',
             line={'color': 'red'}
         )),
         traces.append(go.Scatter(
@@ -95,7 +104,8 @@ def file_callback(app):
             y=atlag-3*szoras,
             mode='lines',
             line={'color': 'red'},
-            name='Sigma 3',
+            legendgroup='3xSigmagroup',
+            name='3xSigma',
             showlegend=False
         )),
         traces.append(go.Scatter(
@@ -103,23 +113,22 @@ def file_callback(app):
             y=userline1,
             mode='lines',
             line={'color': 'grey', 'width': 5},
-            name='Upper limit: '+userspec1,
+            name='Upper limit '+userspec1,
         )),
         traces.append(go.Scatter(
             x=df['X'],
             y=userline2,
             mode='lines',
             line={'color': 'grey', 'width': 5},
-            name='Lower limit: '+userspec2,
+            name='Lower limit '+userspec2,
         )),
         return {
             'data': traces,
             'layout': go.Layout(
-                title='Control Chart',
-                xaxis={'title': 'Data'},
-                yaxis={'title': 'Sampling value'},
+                title=chartname,
+                xaxis={'title': xaxi, 'showgrid': False},
+                yaxis={'title': yaxi, 'fixedrange': True, 'showgrid': False},
                 hovermode='closest',
                 height=800
-            ),
-
+            )
         }

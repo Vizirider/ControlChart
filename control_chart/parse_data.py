@@ -33,15 +33,15 @@ def parse_data(contents, filename):
     for x in range(1, len(df)+1):
         xlist.append(x)
     if len(df.columns)==4:
-        df = pd.DataFrame({'X' : xlist, 'Y' : df.iloc[:,0],'D' : df.iloc[:,1], 'M' : df.iloc[:,2],'T' : df.iloc[:,3]})
+        df = pd.DataFrame({'X' : xlist, 'Y' : df.iloc[:,0]})
     elif len(df.columns)==5:
-        df = pd.DataFrame({'X' : df.iloc[:,0], 'Y' : df.iloc[:,1],'D' : df.iloc[:,2], 'M' : df.iloc[:,3],'T' : df.iloc[:,4]})
+        df = pd.DataFrame({'X' : df.iloc[:,0], 'Y' : df.iloc[:,1]})
     elif len(df.columns)==2:
-        df = pd.DataFrame({'X' : df.iloc[:,0], 'Y' : df.iloc[:,1],'D' : xlist, 'M' : xlist,'T' : xlist})
+        df = pd.DataFrame({'X' : df.iloc[:,0], 'Y' : df.iloc[:,1]})
     elif len(df.columns)==1:
-        df = pd.DataFrame({'X' : xlist, 'Y' : df.iloc[:,0],'D' : xlist, 'M' : xlist,'T' : xlist})
+        df = pd.DataFrame({'X' : xlist, 'Y' : df.iloc[:,0]})
     else:
-        df = pd.DataFrame({'X' : xlist, 'Y' : df.iloc[:,0],'D' : xlist, 'M' : xlist,'T' : xlist})      
+        df = pd.DataFrame({'X' : xlist, 'Y' : df.iloc[:,0]})      
     # ,'D' : xlist, 'M' : xlist,'T' : xlist
     # ,'D' : df.iloc[:,1], 'M' : df.iloc[:,2],'T' : df.iloc[:,3]
     return df
